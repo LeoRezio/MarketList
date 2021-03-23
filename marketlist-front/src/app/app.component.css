@@ -1,0 +1,13 @@
+h3 {
+  margin: 0;
+}
+.new {
+  padding: 0;
+}
+.container {
+  width: 480px;
+  margin: 4rem auto;
+}
+.menu {
+  background-color: blue;
+}

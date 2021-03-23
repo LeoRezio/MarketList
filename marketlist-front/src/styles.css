@@ -4,3 +4,23 @@ body {
   background: -webkit-linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
   background: linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
 }
+h5 {
+  margin: 0;
+  padding: 8px;
+  color: aliceblue;
+}
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+}
+div.p-datatable-wrapper table thead.p-datatable-thead tr th.table-teste {
+  width: 4rem;
+  text-align: center;
+}
+div.p-datatable-wrapper table thead.p-datatable-thead tr th.table-edit {
+  width: 6.5rem;
+  text-align: center;
+}
+div.p-datatable-wrapper table tbody.p-datatable-tbody tr td.table-n {
+  text-align: center;
+}
