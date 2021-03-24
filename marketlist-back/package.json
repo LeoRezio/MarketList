@@ -5,17 +5,21 @@
   "main": "index.ts",
   "dependencies": {
     "@types/express": "^4.17.11",
-    "@types/mongoose": "^5.10.3",
+    "@types/mongoose": "^5.10.4",
     "express": "^4.17.1",
-    "mongoose": "^5.12.0"
+    "mongoose": "^5.12.2",
+    "ts-mongoose": "0.0.24",
+    "mongoose-seed-2": "^0.1.0",
+    "ts-node": "^9.1.1"
   },
   "devDependencies": {
-    "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.6",
     "typescript": "^4.2.3"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "ts-node-dev --transpile-only --ignore-watch nome_modules src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "ts-node-dev src/seed.ts"
   },
   "author": "leorezio",
   "license": "ISC"
