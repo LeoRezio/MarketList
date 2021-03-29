@@ -1,4 +1,4 @@
-import { Request, Response, Router } from "express";
+import { request, Request, Response, Router } from "express";
 import Products from "./model/Products";
 
 const router = Router();
@@ -13,6 +13,15 @@ router.post("/", async (request: Request, response: Response) => {
   const newProduct = new Products(request.body);
   await newProduct.save();
   response.status(201).json(newProduct);
+});
+
+router.put("/:id", async (request: Request, response: Response) => {
+  const { id } = request.params;
+  await Products.findByIdAndUpdate(id, {
+    ...request.body,
+  });
+  const products = await Products.find({});
+  response.json(products);
 });
 
 export { router };
