@@ -24,4 +24,11 @@ router.put("/:id", async (request: Request, response: Response) => {
   response.json(products);
 });
 
+router.delete("/:id", async (request: Request, response: Response) => {
+  const { id } = request.params;
+  await Products.findByIdAndDelete(id);
+  const products = await Products.find({});
+  response.json(products);
+});
+
 export { router };
