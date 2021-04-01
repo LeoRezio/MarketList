@@ -3,7 +3,7 @@
         <ng-template pTemplate="caption">
             <div class="top-bar">
                 <h5>Marketlist</h5>
-                <button pButton type="button" icon="pi pi-plus"></button>
+                <button pButton type="button" icon="pi pi-plus" (click)="openNew()"></button>
             </div>
         </ng-template>
 
@@ -23,7 +23,7 @@
                     <p-tableCheckbox [value]="product"></p-tableCheckbox>
                 </td>
                 <td>{{product.name | titlecase}}</td>
-                <td class="table-n">{{product.qty}}</td>
+                <td class="table-n">{{product.qnty}}</td>
                 <td><button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
                         (click)="editProduct()"></button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
@@ -33,3 +33,26 @@
         </ng-template>
     </p-table>
 </div>
+<p-dialog [(visible)]="productDialog" position="top" [style]="{width: '450px'}" header="Product Details" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-formgrid p-grid">
+            <div class="p-field p-col">
+                <label for="name">Name </label>
+                <input type="text" pInputText id="name" [(ngModel)]="newProduct.name" required autofocus />
+                <small class="p-invalid" *ngIf="submitted && !newProduct.name">Name is required.</small>
+            </div>
+            <div class="p-field p-col">
+                <label for="quantity">Quantity </label>
+                <!--<p-inputNumber id="quantity" [(ngModel)]="newProduct.qnty" mode="decimal" [min]="0" [max]="100">
+                </p-inputNumber>-->
+                <input type="number" id="quantity" [(ngModel)]="newProduct.qnty" />
+            </div>
+        </div>
+    </ng-template>
+    <p-footer>
+        <p-button icon="pi pi-check" label="Confirm" class="p-button-rounded p-button-text" (click)="saveProduct()">
+        </p-button>
+        <p-button icon="pi pi-times" label="Cancel" class="p-button-outlined" (click)="hideDialog()"></p-button>
+    </p-footer>
+</p-dialog>
