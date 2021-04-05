@@ -11,7 +11,7 @@ import { ProductService } from './app.service';
 })
 export class AppComponent implements OnInit {
   product: Product[] = [];
-  newProduct!: { name: string; qnty: number };
+  newProduct = new Product();
   submitted!: boolean;
   productDialog: boolean = false;
 
@@ -20,12 +20,19 @@ export class AppComponent implements OnInit {
     private primengConfig: PrimeNGConfig
   ) {}
   ngOnInit(): void {
+    //this.productservice.getProduct().subscribe((product) => {
+    //  this.product = product;
+    //});
+    this.primengConfig.ripple = true;
+    this.refreshList();
+  }
+  title = 'marketlist';
+
+  refreshList() {
     this.productservice.getProduct().subscribe((product) => {
       this.product = product;
     });
-    this.primengConfig.ripple = true;
   }
-  title = 'marketlist';
 
   editProduct() {}
 
@@ -37,7 +44,19 @@ export class AppComponent implements OnInit {
 
   deleteProduct() {}
 
-  hideDialog() {}
+  hideDialog() {
+    this.productDialog = false;
+    this.submitted = false;
+  }
 
-  saveProduct() {}
+  saveProduct() {
+    this.submitted = true;
+    this.productservice.postProduct(this.newProduct).subscribe((data) => {
+      console.log(data);
+    });
+    this.product = [...this.product];
+    this.newProduct = {};
+    this.productDialog = false;
+    this.refreshList();
+  }
 }

@@ -12,7 +12,9 @@ router.get("/", async (request: Request, response: Response) => {
 router.post("/", async (request: Request, response: Response) => {
   const newProduct = new Products(request.body);
   await newProduct.save();
-  response.status(201).json(newProduct);
+  const product = await Products.find({});
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.status(201).json(product);
 });
 
 router.put("/:id", async (request: Request, response: Response) => {
