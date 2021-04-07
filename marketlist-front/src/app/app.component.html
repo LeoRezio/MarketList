@@ -25,7 +25,7 @@
                 <td>{{product.name | titlecase}}</td>
                 <td class="table-n">{{product.qnty}}</td>
                 <td><button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
-                        (click)="editProduct()"></button>
+                        (click)="editProduct(product)"></button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
                         (click)="deleteProduct()"></button>
                 </td>
@@ -44,8 +44,6 @@
             </div>
             <div class="p-field p-col">
                 <label for="quantity">Quantity </label>
-                <!--<p-inputNumber id="quantity" [(ngModel)]="newProduct.qnty" mode="decimal" [min]="0" [max]="100">
-                </p-inputNumber>-->
                 <input type="number" id="quantity" [(ngModel)]="newProduct.qnty" />
             </div>
         </div>

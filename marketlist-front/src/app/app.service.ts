@@ -22,4 +22,14 @@ export class ProductService {
     console.log(body);
     return this.http.post<Product[]>(this.apiURL, body, { headers });
   }
+  public putProduct(newProduct: Product) {
+    const headers = {
+      'content-type': 'application/json',
+    };
+    const body = JSON.stringify(newProduct);
+    console.log(body);
+    const url: any = this.apiURL + newProduct._id;
+    console.log(url);
+    return this.http.put<Product[]>(url, body, { headers });
+  }
 }

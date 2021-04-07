@@ -20,9 +20,6 @@ export class AppComponent implements OnInit {
     private primengConfig: PrimeNGConfig
   ) {}
   ngOnInit(): void {
-    //this.productservice.getProduct().subscribe((product) => {
-    //  this.product = product;
-    //});
     this.primengConfig.ripple = true;
     this.refreshList();
   }
@@ -31,13 +28,17 @@ export class AppComponent implements OnInit {
   refreshList() {
     this.productservice.getProduct().subscribe((product) => {
       this.product = product;
+      console.log(product);
     });
   }
 
-  editProduct() {}
+  editProduct(product: Product) {
+    this.newProduct = { ...product };
+    this.productDialog = true;
+  }
 
   openNew() {
-    this.newProduct;
+    this.newProduct = {};
     this.submitted = false;
     this.productDialog = true;
   }
@@ -49,14 +50,44 @@ export class AppComponent implements OnInit {
     this.submitted = false;
   }
 
+  //saveProduct() {
+  //  this.submitted = true;
+  //  this.productservice.postProduct(this.newProduct).subscribe((data) => {
+  //    console.log(data);
+  //  });
+  //  this.newProduct = {};
+  //  this.productDialog = false;
+  //  this.refreshList();
+  //}
+
   saveProduct() {
     this.submitted = true;
-    this.productservice.postProduct(this.newProduct).subscribe((data) => {
-      console.log(data);
-    });
-    this.product = [...this.product];
-    this.newProduct = {};
-    this.productDialog = false;
-    this.refreshList();
+    if (this.newProduct.name?.trim()) {
+      if (this.newProduct._id) {
+        this.product[this.findIndexById(this.newProduct._id)] = this.newProduct;
+        this.productservice.putProduct(this.newProduct).subscribe((data) => {
+          console.log(data);
+        });
+      } else {
+        this.productservice.postProduct(this.newProduct).subscribe((data) => {
+          console.log(data);
+        });
+      }
+      this.product = [...this.product];
+      this.productDialog = false;
+      this.newProduct = {};
+      this.refreshList();
+    }
+  }
+  findIndexById(_id: string): number {
+    let index = -1;
+    for (let i = 0; i < this.product.length; i++) {
+      if (this.product[i]._id === _id) {
+        index = i;
+        break;
+      }
+    }
+
+    return index;
   }
 }
