@@ -12,6 +12,8 @@ import { RippleModule } from 'primeng/ripple';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,8 +28,9 @@ import { FormsModule } from '@angular/forms';
     DialogModule,
     FormsModule,
     BrowserAnimationsModule,
+    ConfirmDialogModule,
   ],
-  providers: [],
+  providers: [ConfirmationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

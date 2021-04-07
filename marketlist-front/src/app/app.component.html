@@ -27,7 +27,7 @@
                 <td><button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
                         (click)="editProduct(product)"></button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-                        (click)="deleteProduct()"></button>
+                        (click)="deleteProduct(product)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -54,3 +54,4 @@
         <p-button icon="pi pi-times" label="Cancel" class="p-button-outlined" (click)="hideDialog()"></p-button>
     </p-footer>
 </p-dialog>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

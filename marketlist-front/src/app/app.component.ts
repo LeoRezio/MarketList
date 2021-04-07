@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { Product } from 'src/shared/products.model';
 import { ProductService } from './app.service';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private productservice: ProductService,
-    private primengConfig: PrimeNGConfig
+    private primengConfig: PrimeNGConfig,
+    private confirmationService: ConfirmationService
   ) {}
   ngOnInit(): void {
     this.primengConfig.ripple = true;
@@ -43,22 +45,24 @@ export class AppComponent implements OnInit {
     this.productDialog = true;
   }
 
-  deleteProduct() {}
+  deleteProduct(product: Product) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + product.name + '?',
+      header: 'Delete',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.newProduct = { ...product };
+        this.productservice.deleteProduct(this.newProduct);
+        this.newProduct = {};
+        this.refreshList();
+      },
+    });
+  }
 
   hideDialog() {
     this.productDialog = false;
     this.submitted = false;
   }
-
-  //saveProduct() {
-  //  this.submitted = true;
-  //  this.productservice.postProduct(this.newProduct).subscribe((data) => {
-  //    console.log(data);
-  //  });
-  //  this.newProduct = {};
-  //  this.productDialog = false;
-  //  this.refreshList();
-  //}
 
   saveProduct() {
     this.submitted = true;

@@ -19,7 +19,6 @@ export class ProductService {
       'content-type': 'application/json',
     };
     const body = JSON.stringify(newProduct);
-    console.log(body);
     return this.http.post<Product[]>(this.apiURL, body, { headers });
   }
   public putProduct(newProduct: Product) {
@@ -27,9 +26,14 @@ export class ProductService {
       'content-type': 'application/json',
     };
     const body = JSON.stringify(newProduct);
-    console.log(body);
+    const url: any = this.apiURL + newProduct._id;
+    return this.http.put<Product[]>(url, body, { headers });
+  }
+  public deleteProduct(newProduct: Product) {
     const url: any = this.apiURL + newProduct._id;
     console.log(url);
-    return this.http.put<Product[]>(url, body, { headers });
+    return this.http.delete(url).subscribe((data) => {
+      console.log(data);
+    });
   }
 }
